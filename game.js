@@ -21,13 +21,13 @@ class Vector {
 class Actor{
   constructor(pos = new Vector(0, 0), size = new Vector(1, 1), speed = new Vector(0, 0)){
   	if(!(pos instanceof Vector)){
-  		throw new Error ('Можно прибавлять к вектору только вектор типа Vector');
+  		throw new Error ('pos должен быть только типа Vector');
   	}
   	if(!(size instanceof Vector)){
-  		throw new Error ('Можно прибавлять к вектору только вектор типа Vector');
+  		throw new Error ('size должен быть только типа Vector');
   	}
   	if(!(speed instanceof Vector)){
-  		throw new Error ('Можно прибавлять к вектору только вектор типа Vector');
+  		throw new Error ('speed должен быть только типа Vector');
   	}
 	  this.pos = pos;
 	  this.size = size;
@@ -44,7 +44,7 @@ class Actor{
   }
 
   get right(){
-  	return this.pos.x;
+  	return this.pos.x + this.size.x;
   }
 
   get top(){
@@ -52,11 +52,17 @@ class Actor{
   }
 
   get bottom(){
-  	return this.posy;
+  	return this.pos.y + this.size.x;
   }
 
   get type(){
 	  	return 'actor';
+	  }
+
+	  isIntersect(movingObject){
+	  	if(movingObject instanceof Actor && movingObject){
+	  		return ()
+	  	}
 	  }
 
 }
