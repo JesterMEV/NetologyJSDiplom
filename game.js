@@ -60,8 +60,13 @@ class Actor{
 	  }
 
 	  isIntersect(movingObject){
+	  	if(movingObject === this){
+	  		return false;
+	  	}
 	  	if(movingObject instanceof Actor && movingObject){
-	  		return ()
+	  		return this.right > movingObject.left && this.left < movingObject.right && this.bottom > movingObject.top && this.top < movingObject.bottom;
+	  	} else {
+	  		throw new Error('можно передавать только объект Actor');
 	  	}
 	  }
 
