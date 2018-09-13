@@ -72,9 +72,13 @@ class Actor{
 
 }
 
-// class Level{
-
-// }
+class Level{
+	constructor(grid = [], actors = []){
+		this.grid = grid;
+		this.actors = actors;
+		this.
+	}
+}
 const grid = [
   new Array(3),
   ['wall', 'wall', 'lava']
