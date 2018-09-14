@@ -76,9 +76,12 @@ class Level{
 	constructor(grid = [], actors = []){
 		this.grid = grid;
 		this.actors = actors;
-		this.
+		this.player = find(el => el.type === 'player');
+		this.height = grid.length;
+		
 	}
 }
+
 const grid = [
   new Array(3),
   ['wall', 'wall', 'lava']
