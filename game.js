@@ -83,8 +83,21 @@ class Level{
 		this.finishDelay = 1;
 	}
 
-	isFinished() {
+	isFinished(){
 		return this.status !== null && this.finishDelay < 0;
+	}
+
+	actorAt(actor){
+		if(!(actor instanceof Actor)){
+			throw new Error('Нужно передавать обхект типа Actor');
+		}
+		return this.actors.find(el => el.isIntersect(actor));
+	}
+
+	obstacleAt(position, size){
+		if (!(position instanceof Vector) || !(size instanceof Vector)) {
+			throw new Error('нужно передавать объект типа Vector');
+		}
 	}
 }
 
