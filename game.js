@@ -20,105 +20,105 @@ class Vector {
 
 class Actor{
   constructor(pos = new Vector(0, 0), size = new Vector(1, 1), speed = new Vector(0, 0)){
-  	if(!(pos instanceof Vector)){
-  		throw new Error ('pos должен быть только типа Vector');
-  	}
-  	if(!(size instanceof Vector)){
-  		throw new Error ('size должен быть только типа Vector');
-  	}
-  	if(!(speed instanceof Vector)){
-  		throw new Error ('speed должен быть только типа Vector');
-  	}
-	  this.pos = pos;
-	  this.size = size;
-	  this.speed = speed;
+    if(!(pos instanceof Vector)){
+      throw new Error ('pos должен быть только типа Vector');
+    }
+    if(!(size instanceof Vector)){
+      throw new Error ('size должен быть только типа Vector');
+    }
+    if(!(speed instanceof Vector)){
+      throw new Error ('speed должен быть только типа Vector');
+    }
+    this.pos = pos;
+    this.size = size;
+    this.speed = speed;
   }
 
   act(){
 
-  	
+    
   }
 
   get left(){
-  	return this.pos.x;
+    return this.pos.x;
   }
 
   get right(){
-  	return this.pos.x + this.size.x;
+    return this.pos.x + this.size.x;
   }
 
   get top(){
-  	return this.pos.y;
+    return this.pos.y;
   }
 
   get bottom(){
-  	return this.pos.y + this.size.x;
+    return this.pos.y + this.size.x;
   }
 
   get type(){
-	  	return 'actor';
-	  }
+      return 'actor';
+    }
 
-	  isIntersect(movingObject){
-	  	if(movingObject === this){
-	  		return false;
-	  	}
-	  	if(movingObject instanceof Actor && movingObject){
-	  		return this.right > movingObject.left && this.left < movingObject.right && this.bottom > movingObject.top && this.top < movingObject.bottom;
-	  	} else {
-	  		throw new Error('можно передавать только объект Actor');
-	  	}
-	  }
+  isIntersect(movingObject){
+    if(movingObject === this){
+      return false;
+    }
+    if(movingObject instanceof Actor && movingObject){
+      return this.right > movingObject.left && this.left < movingObject.right && this.bottom > movingObject.top && this.top < movingObject.bottom;
+    } else {
+      throw new Error('можно передавать только объект Actor');
+    }
+  }
 
 }
 
 class Level{
-	constructor(grid = [], actors = []){
-		this.grid = grid;
-		this.actors = actors;
-		this.player = actors.find(el => el.type === 'player');
-		this.height = grid.length;
-		this.width = Math.max(0, ...grid.map(el => el.length));
-		this.status = null;
-		this.finishDelay = 1;
-	}
+  constructor(grid = [], actors = []){
+    this.grid = grid;
+    this.actors = actors;
+    this.player = actors.find(el => el.type === 'player');
+    this.height = grid.length;
+    this.width = Math.max(0, ...grid.map(el => el.length));
+    this.status = null;
+    this.finishDelay = 1;
+  }
 
-	isFinished(){
-		return this.status !== null && this.finishDelay < 0;
-	}
+  isFinished(){
+    return this.status !== null && this.finishDelay < 0;
+  }
 
-	actorAt(actor){
-		if(!(actor instanceof Actor)){
-			throw new Error('Нужно передавать обхект типа Actor');
-		}
-		return this.actors.find(el => el.isIntersect(actor));
-	}
+  actorAt(actor){
+    if(!(actor instanceof Actor)){
+      throw new Error('Нужно передавать обхект типа Actor');
+    }
+    return this.actors.find(el => el.isIntersect(actor));
+  }
 
-	obstacleAt(position, size) {
-	    if (!(position instanceof Vector) || !(size instanceof Vector)) {
-	      throw new Error('Необходимо передать объект типа Vector');
-	    }
+  obstacleAt(position, size) {
+      if (!(position instanceof Vector) || !(size instanceof Vector)) {
+        throw new Error('Необходимо передать объект типа Vector');
+      }
 
-	    const left = Math.floor(position.x);
-	    const top = Math.floor(position.y);
-	    const right = Math.ceil(position.x + size.x);
-	    const bottom = Math.ceil(position.y + size.y);
+      const left = Math.floor(position.x);
+      const top = Math.floor(position.y);
+      const right = Math.ceil(position.x + size.x);
+      const bottom = Math.ceil(position.y + size.y);
 
-	    if (left < 0 || right > this.width || top < 0) {
-	      return 'wall';
-	    }
+      if (left < 0 || right > this.width || top < 0) {
+        return 'wall';
+      }
 
-	    if (bottom > this.height) {
-	      return 'lava';
-	    }
+      if (bottom > this.height) {
+        return 'lava';
+      }
 
-	    for (let y = top; y < bottom; y++) {
-	      for (let x = left; x < right; x++) {   
-	        if (this.grid[y][x]) {
-	          return this.grid[y][x];
-	        }
-	      }
-	    }
+      for (let y = top; y < bottom; y++) {
+        for (let x = left; x < right; x++) {   
+          if (this.grid[y][x]) {
+            return this.grid[y][x];
+          }
+        }
+      }
   }
 
   removeActor(actor) {
